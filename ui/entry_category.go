@@ -42,16 +42,6 @@ func (h *handler) showCategoryEntryPage(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	if entry.Status == model.EntryStatusUnread {
-		err = h.store.SetEntriesStatus(user.ID, []int64{entry.ID}, model.EntryStatusRead)
-		if err != nil {
-			html.ServerError(w, r, err)
-			return
-		}
-
-		entry.Status = model.EntryStatusRead
-	}
-
 	entryPaginationBuilder := storage.NewEntryPaginationBuilder(h.store, user.ID, entry.ID, user.EntryDirection)
 	entryPaginationBuilder.WithCategoryID(categoryID)
 	prevEntry, nextEntry, err := entryPaginationBuilder.Entries()
