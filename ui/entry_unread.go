@@ -67,12 +67,12 @@ func (h *handler) showUnreadEntryPage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Always mark the entry as read after fetching the pagination.
-	err = h.store.SetEntriesStatus(user.ID, []int64{entry.ID}, model.EntryStatusRead)
-	if err != nil {
-		html.ServerError(w, r, err)
-		return
-	}
-	entry.Status = model.EntryStatusRead
+// 	err = h.store.SetEntriesStatus(user.ID, []int64{entry.ID}, model.EntryStatusRead)
+// 	if err != nil {
+// 		html.ServerError(w, r, err)
+// 		return
+// 	}
+// 	entry.Status = model.EntryStatusRead
 
 	sess := session.New(h.store, request.SessionID(r))
 	view := view.New(h.tpl, r, sess)
